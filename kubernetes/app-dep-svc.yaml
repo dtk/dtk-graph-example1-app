@@ -9,7 +9,8 @@ spec:
   type: NodePort
   ports:
   - port: 8080
-    targetPort: 8080
+    # Issue 1: This will cause that service target 8081 doesn't match pod/containers actual port 8080
+    targetPort: 8081 
     nodePort: 31112
   selector:
     app: node
@@ -27,13 +28,15 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-     maxSurge: 1 # max number of pods that can be created over the desired number of pods
-     maxUnavailable: 0 # max number of pods that can be unavailable during rolling update
+      maxSurge: 1
+      maxUnavailable: 0
   replicas: 1
   template:
     metadata:
       labels:
-        app: node
+        # Issue 2: This will cause that Service selector cannot match underlying pod
+        # Issue 3: This will cause that Deployment selector cannot match underlying pod
+        app: node-broken 
     spec:
       containers:
       - name: node
@@ -51,13 +54,12 @@ spec:
         - name: DB_HOST
           value: <DB_HOST>
         - name: DB_PORT
-          value: '6379'
+          # Issue 4: Incorrect REDIS master port. Pod will be started correctly but issue will be seen only in pod logs
+          value: '6000'
         ports:
         - containerPort: 8080
         resources:
           requests:
             memory: "100Mi"
             cpu: "100m"
-          limits:
-            memory: "200Mi"
-            cpu: "200m"
+          # Issue 5: Resource limits are not defined which can potentially be dangerous

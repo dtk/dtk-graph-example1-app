@@ -65,7 +65,7 @@ Listening on port 8080
 
 To deploy with kubernetes, you first need to generate base64 content for REDIS_PASSWORD:
 ```
-echo $REDIS_PASSWORD | base64
+echo -n $REDIS_PASSWORD | base64
 ```
 and paste that value into the `app-secret.yaml` file.
 
