@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app-svc
+  labels:
+    app: node
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 31111
+  selector:
+    app: node
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-dep
+  labels:
+    app: node
+spec:
+  selector:
+    matchLabels:
+      app: node
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+     maxSurge: 1 # max number of pods that can be created over the desired number of pods
+     maxUnavailable: 0 # max number of pods that can be unavailable during rolling update
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node
+        image: dtk/graph-example1-app
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: PORT
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: app_port
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: db_password
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: db_host
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: db_port
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "200Mi"
+            cpu: "200m"
