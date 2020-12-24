@@ -69,6 +69,13 @@ echo $REDIS_PASSWORD | base64
 ```
 and paste that value into the `app-secret.yaml` file.
 
+Next, open `app-dep-svc.yaml` and add value for the <DB_HOST> (REDIS HOST). You can find it in following way:
+```
+kubectl get svc | grep redis-master
+my-release-redis-master                      NodePort       172.20.78.144    <none>                                                                   6379:31111/TCP               4h50m
+```
+where `DB_HOST=my-release-redis-master`
+
 After this, run following commands:
 ```
 kubectl apply -f kubernetes/app-secret.yaml
