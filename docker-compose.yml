@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    image: dtk/graph-example1-app
+    image: getdtk/graph-example1-app
     container_name: app
     build: .
     ports:

@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: node
-        image: dtk/graph-example1-app
+        image: getdtk/graph-example1-app
         env:
         - name: NODE_ENV
           value: production
