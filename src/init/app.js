@@ -8,10 +8,10 @@ async function startExpressApp({ expressApp, models }) {
   return server;
 }
 
-export default async (expressApp, models) => {
+export default async (expressApp, redis) => {
   const app = {
     expressApp,
-    models,
+    redis,
   };
 
   console.log('Initiating middlewares...');

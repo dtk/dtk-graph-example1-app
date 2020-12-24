@@ -1,5 +1,6 @@
-// import Sequelize from 'sequelize';
+import { promisifyAll } from 'bluebird';
 import redis from 'redis';
+promisifyAll(redis);
 
 export default async () => {
   const {
