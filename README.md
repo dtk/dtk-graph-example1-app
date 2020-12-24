@@ -95,4 +95,11 @@ Listening on port 8080
 
 App supports two endpoints:
 - POST /api/redis - Create new value in redis for key foo
+```
+curl -X POST -H "Content-Type: application/json" -d '{"value": "mynewvalue"}' http://APP_HOST:APP_PORT/api/redis
+{"status":"Success","message":"Successfully set foo variable to value mynewvalue"}
+```
 - GET /api/redis - Get created value from redis for key foo
+```
+curl -X GET http://APP_HOST:APP_PORT/api/redis
+```
