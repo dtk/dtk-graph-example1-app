@@ -18,7 +18,7 @@ export REDIS_PASSWORD=$(kubectl get secret --namespace default my-release-redis 
 To deploy node app with docker, do following:
 ```
 docker build -t getdtk/graph-example1-app .
-docker run --env PORT=8080 --env DB_HOST=<REDIS_HOST> --env DB_PORT=31111 --env DB_PASSWORD=<REDIS_PASSWORD> -p 8080:8080 getdtk/graph-example1-app
+docker run --env PORT=8080 --env DB_HOST=<REDIS_HOST> --env DB_PORT=<REDIS_PORT> --env DB_PASSWORD=<REDIS_PASSWORD> -p 8080:8080 getdtk/graph-example1-app
 ```
 
 To verify that deployment is succesfull, check inline logs:
@@ -35,7 +35,7 @@ Listening on port 8080
 
 ## Deploy with docker-compose
 
-To deploy node app with docker-compose, first populate REDIS_HOST and REDIS_PASSWORD values in docker-compose.yml and then do following:
+To deploy node app with docker-compose, first populate REDIS_HOST, REDIS_PORT and REDIS_PASSWORD values in docker-compose.yml and then do following:
 ```
 docker-compose up -d
 Creating network "dtk-graph-example1-app_default" with the default driver
