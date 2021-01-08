@@ -8,7 +8,7 @@ cd redis
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install my-release bitnami/redis --values values.yaml
 ```
-- Taken Redis DB password from the output of Helm chart execution
+- Take Redis DB password from the output of Helm chart execution
 ```
 export REDIS_PASSWORD=$(kubectl get secret --namespace default my-release-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
 ```
