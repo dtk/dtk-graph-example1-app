@@ -44,7 +44,10 @@ spec:
         - name: PORT
           value: '8080'
         - name: DB_PASSWORD
-          value: password
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: db_password
         - name: DB_HOST
           value: my-release-redis-master
         - name: DB_PORT
