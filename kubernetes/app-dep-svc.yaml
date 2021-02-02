@@ -29,7 +29,7 @@ spec:
     rollingUpdate:
      maxSurge: 1 # max number of pods that can be created over the desired number of pods
      maxUnavailable: 0 # max number of pods that can be unavailable during rolling update
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
