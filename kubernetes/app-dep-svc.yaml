@@ -12,7 +12,7 @@ spec:
     targetPort: 8080
     nodePort: 31112
   selector:
-    app: node
+    svc: node-app-svc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -23,17 +23,18 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: node
+      dep: node-app-dep
   strategy:
     type: RollingUpdate
     rollingUpdate:
-     maxSurge: 1 # max number of pods that can be created over the desired number of pods
-     maxUnavailable: 0 # max number of pods that can be unavailable during rolling update
+     maxSurge: 1
+     maxUnavailable: 0
   replicas: 1
   template:
     metadata:
       labels:
-        app: node
+        svc: node-app-svc
+        dep: node-app-dep
     spec:
       containers:
       - name: node
