@@ -8,11 +8,11 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 8080
+  - port: 8081 # Change from 8080 to 8081
     targetPort: 8080
     nodePort: 31112
   selector:
-    svc: node-app-svc
+    svc: node-app-svc2 # Change from node-app-svc to node-app-svc2 to provoke reasoning mechanism (service doesn't match pods now)
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -29,7 +29,7 @@ spec:
     rollingUpdate:
      maxSurge: 1
      maxUnavailable: 0
-  replicas: 1
+  replicas: 3 # Change from 1 to 3
   template:
     metadata:
       labels:
@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: node
-        image: getdtk/graph-example1-app
+        image: getdtk/graph-example1-app:v2 # Change from getdtk/graph-example1-app to getdtk/graph-example1-app:v2
         env:
         - name: NODE_ENV
           value: production
@@ -60,5 +60,5 @@ spec:
             memory: "100Mi"
             cpu: "100m"
           limits:
-            memory: "200Mi"
-            cpu: "200m"
+            memory: "400Mi" # Change from 200Mi to 400Mi
+            cpu: "400m" # Change from 200m to 400m
