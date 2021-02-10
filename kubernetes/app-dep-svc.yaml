@@ -9,10 +9,10 @@ spec:
   type: NodePort
   ports:
   - port: 8080
-    targetPort: 8080
+    targetPort: 8081
     nodePort: 31112
   selector:
-    svc: node-app-svc
+    svc: node-app-svc2
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -23,7 +23,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      dep: node-app-dep
+      dep: node-app-dep2
   strategy:
     type: RollingUpdate
     rollingUpdate:
