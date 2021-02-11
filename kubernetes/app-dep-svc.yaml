@@ -12,7 +12,7 @@ spec:
     targetPort: 8080
     nodePort: 31112
   selector:
-    app: node
+    app: node2
 ---
 apiVersion: apps/v1
 kind: Deployment
