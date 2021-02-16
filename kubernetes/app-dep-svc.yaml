@@ -12,7 +12,7 @@ spec:
     targetPort: 8080
     nodePort: 31112
   selector:
-    svc: node-app-svc
+    app: node
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -23,7 +23,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      dep: node-app-dep
+      app: node
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -33,8 +33,7 @@ spec:
   template:
     metadata:
       labels:
-        svc: node-app-svc
-        dep: node-app-dep
+        app: node
     spec:
       containers:
       - name: node
