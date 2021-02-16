@@ -40,7 +40,10 @@ spec:
         image: getdtk/graph-example1-app
         env:
         - name: NODE_ENV
-          value: production
+          valueFrom:
+            configMapKeyRef:
+              name: node-app-cm
+              key: node_env
         - name: PORT
           value: '8080'
         - name: DB_PASSWORD
