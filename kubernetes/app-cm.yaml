@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-app-cm
+  labels:
+    app: node
+data:
+  environment.yaml: |-
+    environment:
+      name: production
